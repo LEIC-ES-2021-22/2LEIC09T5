@@ -1,26 +1,23 @@
 
-## Product Vision
+# Product Vision
 
-### Vision Statement
+## Vision Statement
 
----
+### To bring some of SIGARRA's most hidden features to light.
 
-To bring some of SIGARRA's most hidden features to light.
+Accesing some documents in SIGARRA can be a confusing and slow process, our goal is to ease the pain of doing so by integrating these features in UNI.
+Targetted at students who need to justify their absences or request certificates, UNIon is the solution.
 
-Accesing some documents in SIGARRA can be a confusing and slow process, our goal is to ease the pain of doing so.
-For the student who needs to justify their absences or the student that needs their certificates, UNIon is the solution.
+## Main Features
 
-### Main Features
-
-Including:
+UNIon will feature:
  - Absence justification - Automatically generate and send emails to the correct department managers to justify absences;
  - Declarations - Access all of the declarations available in SIGARRA;
  - Issue Certificates - Issue new certificates directly from UNI;
- - Check on Certificates - Verify the state of issued certificates and get notified about updates.
+ - Checking Certificates - Verify the state of issued certificates and get notified about updates.
 
----
+## Assumptions and dependencies
 
-### Assumptions and dependencies
-
-Will be dependant on:
- - Student's Information - Course and year in which they are enrolled.
+Most of our information will be retrieved from SIGARRA:
+ - Student's Information - Course and year in which they are enrolled;
+ - SIGARRA's Services - Interact with SIGARRA's services that concern certificates and declarations.
