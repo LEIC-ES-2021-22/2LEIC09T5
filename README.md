@@ -1,4 +1,6 @@
-UNIon Development Report
+# UNIon
+
+## UNIon Development Report
 
 Welcome to the documentation pages of the UNIon!
 

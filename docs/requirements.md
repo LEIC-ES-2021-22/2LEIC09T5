@@ -72,7 +72,7 @@
 | *Preconditions* | - The student is enrolled in the unit and in class X. <br> - Class X is assigned to students of that year. <br> - The new class's schedule does not interfere with the existing student's schedule. |
 | *Postconditions* | - Information about available exchanges is updated. |
 | *Normal flow* | 1. The student accesses the "Request Class Change" page.<br> 2. The student fills in a form with the information of the course unit, their current class and the class they wish to change to.<br> 3. UNI updates its current available class changes.<br> 4. UNI finds possible matches to the request within its database. |
-| *Alternative flows and exceptions* | 1. [Verifty status] If, in step 1 the user does not fill the form, they may check all currently active class changes. |
+| *Alternative flows and exceptions* | 1. [Verify status] If, in step 1 the user does not fill the form, they may check all currently active class changes. |
 
 <br/><br/>
 
