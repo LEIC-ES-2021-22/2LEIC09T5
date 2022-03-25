@@ -1,6 +1,8 @@
-### Use Case Model
+### Use Case Model  
 
+#### UML diagram:
 
+![use case diagram](../images/usecase.png)
 
 |||
 | --- | --- |
