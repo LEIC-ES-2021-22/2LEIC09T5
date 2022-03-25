@@ -30,7 +30,7 @@ Thank you!
 #### Pedro Silva, up202004985
 #### Pedro Nunes, up202004714 
 #### Nuno Anjos, up202007865
-#### José Osório, up20204653
+#### José Osório, up202004653
 #### João Pereira, up202007145
 ---
 
