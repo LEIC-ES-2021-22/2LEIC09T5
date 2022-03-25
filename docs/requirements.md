@@ -68,11 +68,11 @@
 | --- | --- |
 | *Name* | Request Class Change |
 | *Actor* |  Student | 
-| *Description* | The customer purchases one or more tickets for an event, using an electronic payment method, having the option to choose places. |
-| *Preconditions* | - The customer has electronic payment means. <br> - The event has tickets available on-sale. |
-| *Postconditions* | - The customer gets the electronic tickets with a QR code. <br> - The customer is charged of the tickets’ cost, and the seller credited. <br> - Information of tickets sold & seats available for the event is updated. |
-| *Normal flow* | 1. The customer accesses the web page of the ticketing system.<br> 2. The system shows the list of events with tickets on-sale.<br> 3. The customer selects the event and the number of tickets.<br> 4. If wanted, the costumer may Choose Places.<br> 5. The system shows the total price to pay.<br> 6. The system redirects the customer to Electronic Payment.<br> 7. The system delivers the electronic tickets to the customer with a unique identifier and QR code. |
-| *Alternative flows and exceptions* | 1. [Payment failure] If, in step 6 of the normal flow the payment fails, the system gives the user the possibility to cancel or retry. |
+| *Description* | The student request a change from class X into class Y, in a certain course unit. |
+| *Preconditions* | - The student is enrolled in the unit and in class X. <br> - Class X is assigned to students of that year. <br> - The new class's schedule does not interfere with the existing student's schedule. |
+| *Postconditions* | - Information about available exchanges is updated. |
+| *Normal flow* | 1. The student accesses the "Request Class Change" page.<br> 2. The student fills in a form with the information of the course unit, their current class and the class they wish to change to.<br> 3. UNI updates its current available class changes.<br> 4. UNI finds possible matches to the request within its database. |
+| *Alternative flows and exceptions* | 1. [Verifty status] If, in step 1 the user does not fill the form, they may check all currently active class changes. |
 
 <br/><br/>
 
