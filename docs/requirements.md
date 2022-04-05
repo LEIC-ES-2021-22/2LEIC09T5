@@ -8,11 +8,11 @@
 | --- | --- |
 | *Name* | Request Certificate |
 | *Actor* |  Student | 
-| *Description* | The customer purchases one or more tickets for an event, using an electronic payment method, having the option to choose places. |
-| *Preconditions* | - The customer has electronic payment means. <br> - The event has tickets available on-sale. |
-| *Postconditions* | - The customer gets the electronic tickets with a QR code. <br> - The customer is charged of the tickets’ cost, and the seller credited. <br> - Information of tickets sold & seats available for the event is updated. |
-| *Normal flow* | 1. The customer accesses the web page of the ticketing system.<br> 2. The system shows the list of events with tickets on-sale.<br> 3. The customer selects the event and the number of tickets.<br> 4. If wanted, the costumer may Choose Places.<br> 5. The system shows the total price to pay.<br> 6. The system redirects the customer to Electronic Payment.<br> 7. The system delivers the electronic tickets to the customer with a unique identifier and QR code. |
-| *Alternative flows and exceptions* | 1. [Payment failure] If, in step 6 of the normal flow the payment fails, the system gives the user the possibility to cancel or retry. |
+| *Description* | The student requests a certificate through the application interface. |
+| *Preconditions* | - The student is eligible to request a certificate. <br> - The system has certificates available to issue. |
+| *Postconditions* | - The student gets a confirmation on the app that the certificate request was successful. |
+| *Normal flow* | 1. The user accesses the certificate request page.<br> 2. The system shows the list of certificates that are able to be requested.<br> 3. The student chooses a certificate to request.<br> 4. The system asks the student for confirmation.<br> 5. The student confirms the request.<br> 6. The system applies the request.<br> 7. The system shows a message confirming the success of the operation. |
+| *Alternative flows and exceptions* | 1. [Request Failure] If, in step 6, the request fails, the system gives the student the possibility to cancel or retry. |
 
 <br/><br/>
 
@@ -20,11 +20,11 @@
 | --- | --- |
 | *Name* | Retrieve Declaration |
 | *Actor* |  Student | 
-| *Description* | The customer purchases one or more tickets for an event, using an electronic payment method, having the option to choose places. |
-| *Preconditions* | - The customer has electronic payment means. <br> - The event has tickets available on-sale. |
-| *Postconditions* | - The customer gets the electronic tickets with a QR code. <br> - The customer is charged of the tickets’ cost, and the seller credited. <br> - Information of tickets sold & seats available for the event is updated. |
-| *Normal flow* | 1. The customer accesses the web page of the ticketing system.<br> 2. The system shows the list of events with tickets on-sale.<br> 3. The customer selects the event and the number of tickets.<br> 4. If wanted, the costumer may Choose Places.<br> 5. The system shows the total price to pay.<br> 6. The system redirects the customer to Electronic Payment.<br> 7. The system delivers the electronic tickets to the customer with a unique identifier and QR code. |
-| *Alternative flows and exceptions* | 1. [Payment failure] If, in step 6 of the normal flow the payment fails, the system gives the user the possibility to cancel or retry. |
+| *Description* | The student can view and download a declaration.  |
+| *Preconditions* | - The student is eligible to view and use a declaration. <br> - SIGARRA has declarations available to be used. |
+| *Postconditions* | - The student views the declaration in-app and, if necessary. <br> - The declaration gets downloaded to the user's phone if the student wishes. |
+| *Normal flow* | 1. The user accesses the eligible declaration page.<br> 2. The system shows the list of declarations that are able to be used.<br> 3. The student chooses a declaration to view.<br> 4. The system displays the declaration in-app.<br> 5. If wanted, the student can download the declaration.<br> 6. In that case, the system downloads the declaration to the student's phone. |
+| *Alternative flows and exceptions* | N/A|
 
 <br/><br/>
 
