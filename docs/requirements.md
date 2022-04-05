@@ -85,3 +85,9 @@
 | *Postconditions* | - The student is notified of the decision made on their request <br> - The student making the request is moved to the class they requested, if possible <br> - The student is removed from the class they were originally in, provided the request was accepted |
 | *Normal flow* | 1. The board accesses the "Class Change Requests" tab <br> 2. The application shows the list of requests not yet handled <br> 3. The board selects whether to allow/refuse the request <br> 4. The system changes (or not) the student's class|
 | *Alternative flows and exceptions* | 1. [Put on hold for vacancies] If the class the student wishes to change to has no vacancies left, they are put on a waiting list until a student from the target class chooses to trade classes with them |
+
+<br/><br/>
+
+# Domain Model  
+
+![domain model diagram](../images/domain_model.png)
