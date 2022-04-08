@@ -6,11 +6,11 @@
 ### To bring some of SIGARRA's most hidden features to light.
 
 Accesing some documents in SIGARRA can be a confusing and slow process, our goal is to ease the pain of doing so by integrating these features in UNI.
-Targetted at students who need to justify their absences or request certificates, UNIon is the solution.
+Targetted at students who need to justify their absences or request certificates, secretaNIa is the solution.
 
 ## Main Features
 
-UNIon will feature:
+secretaNIa will feature:
  - Absence justification - Automatically generate and send emails to the correct department managers to justify absences;
  - Declarations - Access all of the declarations available in SIGARRA;
  - Issue Certificates - Issue new certificates directly from UNI;
