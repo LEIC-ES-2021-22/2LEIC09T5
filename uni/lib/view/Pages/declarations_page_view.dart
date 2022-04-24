@@ -8,25 +8,21 @@ class DeclarationsPageView extends StatefulWidget {
 }
 
 class DeclarationsPageViewState extends SecondaryPageViewState {
-
   @override
   Widget getBody(BuildContext context) {
-  
     return ListView(
       children: <Widget>[
-        Container(
-          child: Column(
-            children: <Widget>[
-              DeclarationsPageTitle(),
-              Text("testData1"),
-              Text("testData2"),
-              Text("testData3"),
-            ]
-          )
-        ),
+        Container(child: Column(children: this.buildChildren(context))),
       ],
     );
   }
 
+  List<Widget> buildChildren(BuildContext context) {
+    return <Widget>[
+      DeclarationsPageTitle(),
+      Text("testData1"),
+      Text("testData2"),
+      Text("testData3"),
+    ];
+  }
 }
-
