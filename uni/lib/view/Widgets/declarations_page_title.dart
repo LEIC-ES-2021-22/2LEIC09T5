@@ -9,8 +9,10 @@ class DeclarationsPageTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+      margin: EdgeInsets.only(bottom: 10),
       alignment: Alignment.center,
-      child: Row( // use Row to make title go to the left
+      child: Row(
+        // use Row to make title go to the left
         children: [
           Text(
             name,

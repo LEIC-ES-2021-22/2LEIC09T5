@@ -21,10 +21,10 @@ class DeclarationsPageViewState extends SecondaryPageViewState {
   List<Widget> buildChildren(BuildContext context) {
     return <Widget>[
       DeclarationsPageTitle(),
-      DeclarationRectangle("This is some sample DECLARATION text"),
-      Text("testData1"),
-      Text("testData2"),
-      Text("testData3"),
+      DeclarationRectangle("This is some sample DECLARATION text1"),
+      DeclarationRectangle("This is some sample DECLARATION text2"),
+      DeclarationRectangle("This is some sample DECLARATION text3"),
+      DeclarationRectangle("This is some sample DECLARATION text4"),
     ];
   }
 }
