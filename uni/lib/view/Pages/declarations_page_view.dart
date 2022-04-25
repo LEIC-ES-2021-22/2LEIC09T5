@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
 import 'package:uni/view/Widgets/declarations_page_title.dart';
+import 'package:uni/view/Widgets/declaration_card.dart';
 
 class DeclarationsPageView extends StatefulWidget {
   @override
@@ -20,6 +21,7 @@ class DeclarationsPageViewState extends SecondaryPageViewState {
   List<Widget> buildChildren(BuildContext context) {
     return <Widget>[
       DeclarationsPageTitle(),
+      DeclarationRectangle("This is some sample DECLARATION text"),
       Text("testData1"),
       Text("testData2"),
       Text("testData3"),
