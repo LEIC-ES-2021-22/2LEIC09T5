@@ -16,12 +16,12 @@ class DeclarationsPageViewState extends SecondaryPageViewState {
     return ListView(
       children: <Widget>[
         DeclarationsPageTitle(),
-        this.buildDeclarationCard(context)
+        this.buildDeclarationsCard(context)
       ],
     );
   }
 
-  Widget buildDeclarationCard(BuildContext context) {
+  Widget buildDeclarationsCard(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(5),
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -34,13 +34,16 @@ class DeclarationsPageViewState extends SecondaryPageViewState {
                 blurRadius: this.borderRadius / 2)
           ],
         ),
-        child: Column(children: this.buildChildren(context)));
+        child: Column(children: this.buildDeclarationButtons(context)));
   }
 
-  List<Widget> buildChildren(BuildContext context) {
+  List<Widget> buildDeclarationButtons(BuildContext context) {
     return <Widget>[
-      DeclarationRectangle("This is some sample DECLARATION text1"),
-      DeclarationRectangle("This is some sample DECLARATION text2"),
+      DeclarationRectangle(
+          text: "Declaração Multiusos", buttonAction: () => {print("oi1")}),
+      DeclarationRectangle(
+          text: "Declaração de Desclocamento",
+          buttonAction: () => {print("oi2")}),
     ];
   }
 }
