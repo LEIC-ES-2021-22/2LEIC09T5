@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
 import 'package:uni/view/Widgets/declarations_page_title.dart';
 import 'package:uni/view/Widgets/declaration_card.dart';
+import 'package:uni/controller/declarations/declarations_fetcher.dart';
 
 class DeclarationsPageView extends StatefulWidget {
   @override
@@ -40,10 +41,13 @@ class DeclarationsPageViewState extends SecondaryPageViewState {
   List<Widget> buildDeclarationButtons(BuildContext context) {
     return <Widget>[
       DeclarationRectangle(
-          text: "Declaração Multiusos", buttonAction: () => {print("oi1")}),
+          key: Key("multiusos"),
+          text: "Declaração Multiusos",
+          buttonAction: DeclarationsFetcher.getDeclaration),
       DeclarationRectangle(
+          key: Key("deslocamento"),
           text: "Declaração de Desclocamento",
-          buttonAction: () => {print("oi2")}),
+          buttonAction: DeclarationsFetcher.getDeclaration),
     ];
   }
 }

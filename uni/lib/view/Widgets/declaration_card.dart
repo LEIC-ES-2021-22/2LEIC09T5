@@ -6,7 +6,7 @@ class DeclarationRectangle extends StatelessWidget {
 
   final buttonAction;
 
-  DeclarationRectangle({String this.text, this.buttonAction});
+  DeclarationRectangle({Key key, String this.text, this.buttonAction});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class DeclarationRectangle extends StatelessWidget {
                   borderRadius: BorderRadius.circular(this.borderRadius))),
               foregroundColor:
                   MaterialStateProperty.all(Color.fromARGB(255, 65, 65, 65))),
-          onPressed: () => {buttonAction()},
+          onPressed: () => {buttonAction(this.key.toString())},
           child: Text(this.text, softWrap: true, textAlign: TextAlign.center),
         ));
   }
