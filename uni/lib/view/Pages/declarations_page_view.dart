@@ -12,19 +12,18 @@ class DeclarationsPageView extends StatefulWidget {
 
 class DeclarationsPageViewState extends SecondaryPageViewState {
   final double borderRadius = 12;
-  bool declarationFecthed = false;
+  bool declarationFetched = false;
 
   String declarationText;
 
   void declarationHandler(DeclarationType type) {
     this.setState(() {
-      this.declarationFecthed = false;
+      this.declarationFetched = false;
     });
 
     DeclarationsFetcher.getDeclaration(type).then((value) {
-      print(value);
       this.setState(() {
-        this.declarationFecthed = true;
+        this.declarationFetched = true;
         this.declarationText = value;
       });
     });
@@ -71,7 +70,7 @@ class DeclarationsPageViewState extends SecondaryPageViewState {
   }
 
   Widget showDeclaration(BuildContext context) {
-    if (!this.declarationFecthed) {
+    if (!this.declarationFetched) {
       return Container(width: 0.0, height: 0.0);
     } // cannot return null, return container that takes as little space as possible
 

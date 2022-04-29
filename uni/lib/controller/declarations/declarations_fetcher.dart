@@ -3,8 +3,6 @@ import 'package:uni/model/entities/declaration.dart';
 
 class DeclarationsFetcher {
   static Future<String> getDeclaration(DeclarationType declarationType) async {
-    print(declarationType);
-
     // TODO: implement file downloads
 
     switch (declarationType) {
