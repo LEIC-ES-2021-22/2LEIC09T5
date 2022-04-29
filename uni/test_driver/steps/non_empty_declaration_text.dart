@@ -6,17 +6,19 @@ StepDefinitionGeneric NonEmptyDeclarationText() {
   return then1<String, FlutterWorld>(
     'I expect the {string} to not be empty',
     (key, context) async {
-      final expectMatch = context.expectMatch;
+      context.world.driver.runUnsynchronized(() async {
+        final expectMatch = context.expectMatch;
 
-      final locator = find.byValueKey(key);
+        final locator = find.byValueKey(key);
 
-      expectMatch(
-          await FlutterDriverUtils.isPresent(context.world.driver, locator),
-          true);
+        expectMatch(
+            await FlutterDriverUtils.isPresent(context.world.driver, locator),
+            true);
 
-      final String text = await context.world.driver.getText(locator);
+        final String text = await context.world.driver.getText(locator);
 
-      expectMatch(text.isNotEmpty, true);
+        expectMatch(text.isNotEmpty, true);
+      });
     },
   );
 }
