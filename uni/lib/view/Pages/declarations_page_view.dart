@@ -59,10 +59,12 @@ class DeclarationsPageViewState extends SecondaryPageViewState {
   List<Widget> buildDeclarationButtons(BuildContext context) {
     return <Widget>[
       DeclarationRectangle(
+          key: Key("multiusos"),
           type: DeclarationType.MULTIUSOS,
           text: "Declaração Multiusos",
           buttonAction: this.declarationHandler),
       DeclarationRectangle(
+          key: Key("deslocamento"),
           type: DeclarationType.DESLOCAMENTO,
           text: "Declaração de Deslocamento",
           buttonAction: this.declarationHandler),
@@ -86,6 +88,6 @@ class DeclarationsPageViewState extends SecondaryPageViewState {
                 blurRadius: this.borderRadius / 2)
           ],
         ),
-        child: Text(this.declarationText, textAlign: TextAlign.center));
+        child: Text(this.declarationText, textAlign: TextAlign.center, key: Key("delcarationText")));
   }
 }
