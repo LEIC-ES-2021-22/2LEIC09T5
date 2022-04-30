@@ -6,6 +6,7 @@ import 'package:glob/glob.dart';
 import 'steps/empty_declaration_text.dart';
 import 'steps/non_empty_declaration_text.dart';
 import 'steps/tap_declaration_button.dart';
+import 'steps/declaration_text_content.dart';
 
 Future<void> main() {
   final config = FlutterTestConfiguration()
@@ -18,7 +19,8 @@ Future<void> main() {
     ..stepDefinitions = [
       EmptyDeclarationText(),
       TapDeclarationButton(),
-      NonEmptyDeclarationText()
+      NonEmptyDeclarationText(),
+      DeclarationTextContent(),
     ]
     ..customStepParameterDefinitions = []
     ..restartAppBetweenScenarios = true

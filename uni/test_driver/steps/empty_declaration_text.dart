@@ -4,7 +4,7 @@ import 'package:gherkin/gherkin.dart';
 
 StepDefinitionGeneric EmptyDeclarationText() {
   return given1<String, FlutterWorld>(
-    'I expect the {string} to be empty',
+    'That the {string} is empty',
     (key, context) async {
       final expectMatch = context.expectMatch;
 
