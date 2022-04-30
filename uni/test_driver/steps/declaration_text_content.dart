@@ -11,13 +11,13 @@ const mapping = {
 };
 
 StepDefinitionGeneric DeclarationTextContent() {
-  return and2<String, String, FlutterWorld>(
-    'I expect the {string} to have the text related to the {string} declaration',
-    (textContainer, declarationType, context) async {
+  return and1<String, FlutterWorld>(
+    'I expect the declaration text to have the text related to the {string} declaration',
+    (declarationType, context) async {
       context.world.driver.runUnsynchronized(() async {
         final expectMatch = context.expectMatch;
 
-        final locator = find.byValueKey(textContainer);
+        final locator = find.byValueKey('declarationText');
 
         expectMatch(
             await FlutterDriverUtils.isPresent(context.world.driver, locator),

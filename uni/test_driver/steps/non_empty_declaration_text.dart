@@ -3,13 +3,13 @@ import 'package:flutter_gherkin/flutter_gherkin.dart';
 import 'package:gherkin/gherkin.dart';
 
 StepDefinitionGeneric NonEmptyDeclarationText() {
-  return then1<String, FlutterWorld>(
-    'I expect the {string} to not be empty',
-    (key, context) async {
+  return then<FlutterWorld>(
+    'I expect the declaration text to not be empty',
+    (context) async {
       context.world.driver.runUnsynchronized(() async {
         final expectMatch = context.expectMatch;
 
-        final locator = find.byValueKey(key);
+        final locator = find.byValueKey('declarationTest');
 
         expectMatch(
             await FlutterDriverUtils.isPresent(context.world.driver, locator),
