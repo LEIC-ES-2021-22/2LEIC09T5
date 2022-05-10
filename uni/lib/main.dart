@@ -15,8 +15,11 @@ import 'package:uni/view/Pages/about_page_view.dart';
 import 'package:uni/view/Pages/bug_report_page_view.dart';
 import 'package:uni/view/Pages/bus_stop_next_arrivals_page.dart';
 import 'package:uni/view/Pages/exams_page_view.dart';
+<<<<<<< HEAD
 import 'package:uni/view/Pages/certificates_page_view.dart';
 import 'package:uni/view/Pages/declarations_page_view.dart';
+=======
+>>>>>>> 4f04473 (Started working on absence justifications)
 import 'package:uni/view/Pages/absence_justification_view.dart';
 import 'package:uni/view/Pages/home_page_view.dart';
 import 'package:uni/view/Pages/logout_route.dart';
@@ -94,12 +97,15 @@ class MyAppState extends State<MyApp> {
               case '/' + Constants.navExams:
                 return PageTransition.makePageTransition(
                     page: ExamsPageView(), settings: settings);
+<<<<<<< HEAD
               case '/' + Constants.navCertificates:
                 return PageTransition.makePageTransition(
                     page: CertificatesPageView(), settings: settings);
               case '/' + Constants.navDeclarations:
                 return PageTransition.makePageTransition(
                     page: DeclarationsPageView(), settings: settings);
+=======
+>>>>>>> 4f04473 (Started working on absence justifications)
               case '/' + Constants.navAbsences:
                 return PageTransition.makePageTransition(
                     page: AbsenceJustificationPageView(), settings: settings);

@@ -3,8 +3,11 @@ library Constants;
 const navPersonalArea = 'Área Pessoal';
 const navSchedule = 'Horário';
 const navExams = 'Mapa de Exames';
+<<<<<<< HEAD
 const navCertificates = 'Certificados';
 const navDeclarations = "Declarações";
+=======
+>>>>>>> 4f04473 (Started working on absence justifications)
 const navAbsences = 'Justificação de Faltas';
 const navStops = 'Autocarros';
 const navAbout = 'Sobre';
