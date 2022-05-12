@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class DeclarationsPageTitle extends StatelessWidget {
+class CertificatesPageTitle extends StatelessWidget {
   final String name = "Certificados";
 
-  const DeclarationsPageTitle({Key key}) : super(key: key);
+  const CertificatesPageTitle({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
