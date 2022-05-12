@@ -47,6 +47,8 @@ class GenericCardState extends State<GenericCard> {
 
   @override
   Widget build(BuildContext context) {
+    String title = widget.getTitle();
+
     return GestureDetector(
         onTap: () => widget.onClick(context),
         child: Card(
@@ -79,40 +81,39 @@ class GenericCardState extends State<GenericCard> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Row(
-                        children: [
-                          Flexible(
-                              child: Container(
-                            child: Text(widget.getTitle(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline1
-                                    .apply(
-                                        fontSizeDelta: -53,
-                                        fontWeightDelta: -3)),
-                            alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.symmetric(horizontal: 15),
-                            margin: EdgeInsets.only(top: 15, bottom: 10),
-                          )),
-                          Container(
-                            child: this.getMoveIcon(context),
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.only(top: 8),
-                          ),
-                          Flexible(
-                            child: Container(
+                      if (title != null)
+                        Row(
+                          children: [
+                            Flexible(
+                                child: Container(
+                              child: Text(title,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline1
+                                      .apply(
+                                          fontSizeDelta: -53,
+                                          fontWeightDelta: -3)),
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              margin: EdgeInsets.only(top: 15),
+                            )),
+                            Container(
+                              child: this.getMoveIcon(context),
+                              alignment: Alignment.center,
+                              margin: EdgeInsets.only(top: 8),
+                            ),
+                            Flexible(
+                                child: Container(
                               child: this.getDeleteIcon(context),
                               alignment: Alignment.centerRight,
                               height: 32,
                             )),
-                        ].where((e) => e != null).toList(),
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      ),
+                          ].where((e) => e != null).toList(),
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        ),
                       Container(
-                        padding: EdgeInsets.only(
-                          left: this.padding,
-                          right: this.padding,
-                          bottom: this.padding,
+                        padding: EdgeInsets.all(
+                          this.padding,
                         ),
                         child: widget.buildCardContent(context),
                       )
@@ -136,11 +137,8 @@ class GenericCardState extends State<GenericCard> {
 
   Widget getMoveIcon(context) {
     return (widget.editingMode != null && widget.editingMode)
-        ? Icon(
-          Icons.drag_handle_rounded,
-          color: Colors.grey.shade500,
-          size: 22.0
-        )
-        : null; 
+        ? Icon(Icons.drag_handle_rounded,
+            color: Colors.grey.shade500, size: 22.0)
+        : null;
   }
 }
