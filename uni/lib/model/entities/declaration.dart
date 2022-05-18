@@ -1,0 +1,1 @@
+enum DeclarationType { MULTIUSOS, DESLOCAMENTO }

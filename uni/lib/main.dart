@@ -16,6 +16,7 @@ import 'package:uni/view/Pages/bug_report_page_view.dart';
 import 'package:uni/view/Pages/bus_stop_next_arrivals_page.dart';
 import 'package:uni/view/Pages/exams_page_view.dart';
 import 'package:uni/view/Pages/certificates_page_view.dart';
+import 'package:uni/view/Pages/declarations_page_view.dart';
 import 'package:uni/view/Pages/home_page_view.dart';
 import 'package:uni/view/Pages/logout_route.dart';
 import 'package:uni/view/Pages/splash_page_view.dart';
@@ -95,6 +96,9 @@ class MyAppState extends State<MyApp> {
               case '/' + Constants.navCertificates:
                 return PageTransition.makePageTransition(
                     page: CertificatesPageView(), settings: settings);
+              case '/' + Constants.navDeclarations:
+                return PageTransition.makePageTransition(
+                    page: DeclarationsPageView(), settings: settings);
               case '/' + Constants.navStops:
                 return PageTransition.makePageTransition(
                     page: BusStopNextArrivalsPage(), settings: settings);

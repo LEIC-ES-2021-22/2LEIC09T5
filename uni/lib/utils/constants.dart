@@ -4,6 +4,7 @@ const navPersonalArea = 'Área Pessoal';
 const navSchedule = 'Horário';
 const navExams = 'Mapa de Exames';
 const navCertificates = 'Certificados';
+const navDeclarations = "Declarações";
 const navStops = 'Autocarros';
 const navAbout = 'Sobre';
 const navBugReport = 'Bugs e Sugestões';
