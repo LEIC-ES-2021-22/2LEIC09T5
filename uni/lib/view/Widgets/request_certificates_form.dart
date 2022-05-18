@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:tuple/tuple.dart';
 import 'package:uni/view/Widgets/switch_form_field.dart';
 
@@ -18,32 +21,31 @@ class CertificateType {
     timeLimitPhysical: const [Tuple2('180 dias úteis', '371')],
   );
   static final schoolAchievement = CertificateType(
-    'Certidão de Aproveitamento Escolar',
-    needsYear: true,
-    purposePhysical: const [
-      Tuple2('ADSE', '21'),
-      Tuple2('IRS', '3'),
-      Tuple2('Abono de família', '4'),
-      Tuple2('Concessão de residência a estudantes estrangeiros', '61'),
-      Tuple2('Pensões', '8'),
-      Tuple2('Bolsas de estudo dos Serviços de Ação Social', '81'),
-      Tuple2('Passes de transporte', '9'),
-      Tuple2('Assistência médica e medicamentosa', '41'),
-    ],
-      timeLimitPhysical : const [
+      'Certidão de Aproveitamento Escolar',
+      needsYear: true,
+      purposePhysical: const [
+        Tuple2('ADSE', '21'),
+        Tuple2('IRS', '3'),
+        Tuple2('Abono de família', '4'),
+        Tuple2('Concessão de residência a estudantes estrangeiros', '61'),
+        Tuple2('Pensões', '8'),
+        Tuple2('Bolsas de estudo dos Serviços de Ação Social', '81'),
+        Tuple2('Passes de transporte', '9'),
+        Tuple2('Assistência médica e medicamentosa', '41'),
+      ],
+      timeLimitPhysical: const [
         Tuple2('10 dias úteis', '415'),
         Tuple2('5 dias úteis (50% mais caro)', '567'),
         Tuple2('2 dias úteis (100% mais caro)', '544'),
-      ]
-  );
+      ]);
   static final attendanceOfAcademicYearAndEnrolmentInTheFollowingYear =
       CertificateType(
     'Certidão de Frequência de um Ano Letivo e Inscrição no seguinte',
-          timeLimitPhysical : const [
-            Tuple2('10 dias úteis', '400'),
-            Tuple2('5 dias úteis (50% mais caro)', '563'),
-            Tuple2('2 dias úteis (100% mais caro)', '562'),
-          ],
+    timeLimitPhysical: const [
+      Tuple2('10 dias úteis', '400'),
+      Tuple2('5 dias úteis (50% mais caro)', '563'),
+      Tuple2('2 dias úteis (100% mais caro)', '562'),
+    ],
   );
   static final licenciadoDegree = CertificateType(
     'Certidão de Grau de Licenciado',
@@ -56,86 +58,78 @@ class CertificateType {
     timeLimitDigital: const [Tuple2('30 dias úteis', '1141')],
   );
   static final enrolmentInCurricularYear = CertificateType(
-    'Certidão de Inscrição em Ano Curricular',
-    needsYear: true,
-    purposePhysical: const [
-      Tuple2('ADSE', '21'),
-      Tuple2('IRS', '3'),
-      Tuple2('Abono de família', '4'),
-      Tuple2('Concessão de residência a estudantes estrangeiros', '61'),
-      Tuple2('Pensões', '8'),
-      Tuple2('Bolsas de estudo dos Serviços de Ação Social', '81'),
-      Tuple2('Passes de transporte', '9'),
-      Tuple2('Assistência médica e medicamentosa', '41'),
-    ],
-      timeLimitPhysical : const [
+      'Certidão de Inscrição em Ano Curricular',
+      needsYear: true,
+      purposePhysical: const [
+        Tuple2('ADSE', '21'),
+        Tuple2('IRS', '3'),
+        Tuple2('Abono de família', '4'),
+        Tuple2('Concessão de residência a estudantes estrangeiros', '61'),
+        Tuple2('Pensões', '8'),
+        Tuple2('Bolsas de estudo dos Serviços de Ação Social', '81'),
+        Tuple2('Passes de transporte', '9'),
+        Tuple2('Assistência médica e medicamentosa', '41'),
+      ],
+      timeLimitPhysical: const [
         Tuple2('10 dias úteis', '403'),
         Tuple2('5 dias úteis (50% mais caro)', '542'),
         Tuple2('2 dias úteis (100% mais caro)', '564'),
-      ]
-  );
+      ]);
   static final enrolmentInAcademicYear = CertificateType(
-    'Certidão de Inscrição em Ano Letivo',
-    needsYear: true,
-    purposePhysical: const [
-      Tuple2('ADSE', '21'),
-      Tuple2('IRS', '3'),
-      Tuple2('Abono de família', '4'),
-      Tuple2('Concessão de residência a estudantes estrangeiros', '61'),
-      Tuple2('Pensões', '8'),
-      Tuple2('Bolsas de estudo dos Serviços de Ação Social', '81'),
-      Tuple2('Passes de transporte', '9'),
-      Tuple2('Assistência médica e medicamentosa', '41'),
-    ],
-      timeLimitPhysical : const [
+      'Certidão de Inscrição em Ano Letivo',
+      needsYear: true,
+      purposePhysical: const [
+        Tuple2('ADSE', '21'),
+        Tuple2('IRS', '3'),
+        Tuple2('Abono de família', '4'),
+        Tuple2('Concessão de residência a estudantes estrangeiros', '61'),
+        Tuple2('Pensões', '8'),
+        Tuple2('Bolsas de estudo dos Serviços de Ação Social', '81'),
+        Tuple2('Passes de transporte', '9'),
+        Tuple2('Assistência médica e medicamentosa', '41'),
+      ],
+      timeLimitPhysical: const [
         Tuple2('10 dias úteis', '403'),
         Tuple2('5 dias úteis (50% mais caro)', '542'),
         Tuple2('2 dias úteis (100% mais caro)', '564'),
-      ]
-  );
+      ]);
   static final registrationInCourseUnits = CertificateType(
-    'Certidão de Inscrição em Unidades Curriculares',
-    needsYear: true,
-      timeLimitPhysical : const [
+      'Certidão de Inscrição em Unidades Curriculares',
+      needsYear: true,
+      timeLimitPhysical: const [
         Tuple2('10 dias úteis', '397'),
         Tuple2('5 dias úteis (50% mais caro)', '561'),
         Tuple2('2 dias úteis (100% mais caro)', '541'),
-      ]
-  );
-  static final enrolment = CertificateType(
-    'Certidão de Matrícula',
-      timeLimitPhysical : const [
-        Tuple2('10 dias úteis', '403'),
-        Tuple2('5 dias úteis (50% mais caro)', '542'),
-        Tuple2('2 dias úteis (100% mais caro)', '564'),
-      ]
-  );
+      ]);
+  static final enrolment =
+      CertificateType('Certidão de Matrícula', timeLimitPhysical: const [
+    Tuple2('10 dias úteis', '403'),
+    Tuple2('5 dias úteis (50% mais caro)', '542'),
+    Tuple2('2 dias úteis (100% mais caro)', '564'),
+  ]);
   static final noRestrictionOnRegistration = CertificateType(
-    'Certidão de Não Prescrição',
-    canBeInEnglish: false,
-    needsYear: true,
-      timeLimitPhysical : const [
+      'Certidão de Não Prescrição',
+      canBeInEnglish: false,
+      needsYear: true,
+      timeLimitPhysical: const [
         Tuple2('10 dias úteis', '505'),
         Tuple2('5 dias úteis (50% mais caro)', '1001'),
         Tuple2('2 dias úteis (100% mais caro)', '1021'),
-      ]
-  );
+      ]);
   static final programmesAndCourseWorkloads = CertificateType(
-    'Certidão de Programas e Cargas Horárias',
-      timeLimitPhysical : const [
+      'Certidão de Programas e Cargas Horárias',
+      timeLimitPhysical: const [
         Tuple2('10 dias úteis', '461'),
         Tuple2('5 dias úteis (50% mais caro)', '462'),
         Tuple2('2 dias úteis (100% mais caro)', '481'),
-      ]
-  );
+      ]);
   static final courseUnitsCompleted = CertificateType(
-    'Certidão de Realização de Unidades Curriculares',
-      timeLimitPhysical : const [
+      'Certidão de Realização de Unidades Curriculares',
+      timeLimitPhysical: const [
         Tuple2('10 dias úteis', '397'),
         Tuple2('5 dias úteis (50% mais caro)', '561'),
         Tuple2('2 dias úteis (100% mais caro)', '541'),
-      ]
-  );
+      ]);
   static final sub23Pass = CertificateType(
     'Passe sub23@superior.tp',
     canBeInEnglish: false,
@@ -196,27 +190,19 @@ class _RequestCertificatesFormState extends State<RequestCertificatesForm> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> fields = [];
-    bool first = true;
-
-    for (var w in getFormFields()) {
-      if (first) {
-        first = false;
-      } else {
-        fields.add(SizedBox.fromSize(
-          size: Size.fromHeight(10),
-        ));
-      }
-      fields.add(w);
-    }
+    final List<Widget> fields = getFormFields();
 
     return Form(
       key: formKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: fields,
+        child: ListView.separated(
+          itemCount: fields.length,
+          itemBuilder: (context, i) => fields[i],
+          separatorBuilder: (context, i) =>
+              SizedBox.fromSize(size: Size.fromHeight(10)),
+          shrinkWrap: true,
+          primary: false,
         ),
       ),
     );
@@ -385,7 +371,9 @@ class _RequestCertificatesFormState extends State<RequestCertificatesForm> {
       ));
     }
 
-    if (certificateType == CertificateType.attendanceOfAcademicYearAndEnrolmentInTheFollowingYear) {
+    if (certificateType ==
+        CertificateType
+            .attendanceOfAcademicYearAndEnrolmentInTheFollowingYear) {
       fields.add(DropdownButtonFormField(
         decoration: InputDecoration(labelText: 'Ano letivo - Frequência'),
         items: [

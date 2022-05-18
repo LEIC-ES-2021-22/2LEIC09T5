@@ -15,16 +15,22 @@ class RequestCertificatesPageView extends StatefulWidget {
 
 class RequestCertificatesPageViewState extends UnnamedPageView {
   @override
+  getScaffold(BuildContext context, Widget body) {
+    return Scaffold(
+      appBar: buildAppBar(context),
+      body: body,
+    );
+  }
+
+  @override
   Widget getBody(BuildContext context) {
-    return StoreConnector<AppState, String>(
-      converter: (store) => '',
-      builder: (context, state) => Column(
+    return SafeArea(
+      child: ListView(
         children: [
           CertificatesPageTitle(),
           RequestCertificatesForm(),
         ],
       ),
-      rebuildOnChange: false,
     );
   }
 }
