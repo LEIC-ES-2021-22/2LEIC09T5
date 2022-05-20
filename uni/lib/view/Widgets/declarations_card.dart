@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uni/view/Widgets/declaration_buttons.dart';
 
 import '../../utils/constants.dart' as Constants;
 import 'generic_card.dart';
@@ -12,9 +13,7 @@ class DeclarationsCard extends GenericCard {
 
   @override
   Widget buildCardContent(BuildContext context) {
-    // TODO: implement buildCardContent
-
-    return null;
+    return DeclarationButtons();
   }
 
   @override
