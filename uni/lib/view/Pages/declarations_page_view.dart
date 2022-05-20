@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
 import 'package:uni/view/Widgets/declarations_page_title.dart';
-import 'package:uni/view/Widgets/declaration_card.dart';
+import 'package:uni/view/Widgets/declaration_rectangle.dart';
 import 'package:uni/controller/declarations/declarations_fetcher.dart';
 import 'package:uni/model/entities/declaration.dart';
 

@@ -29,7 +29,7 @@ class DeclarationRectangle extends StatelessWidget {
                   borderRadius: BorderRadius.circular(this.borderRadius))),
               foregroundColor:
                   MaterialStateProperty.all(Color.fromARGB(255, 65, 65, 65))),
-          onPressed: () => {buttonAction != null && buttonAction(this.type)},
+          onPressed: () => {buttonAction?.call(this.type)},
           child: Text(this.text, softWrap: true, textAlign: TextAlign.center),
         ));
   }
