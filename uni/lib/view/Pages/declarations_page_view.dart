@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
+import 'package:uni/view/Widgets/declaration_buttons.dart';
 import 'package:uni/view/Widgets/declarations_page_title.dart';
-import 'package:uni/view/Widgets/declaration_card.dart';
+import 'package:uni/view/Widgets/declaration_rectangle.dart';
 import 'package:uni/controller/declarations/declarations_fetcher.dart';
 import 'package:uni/model/entities/declaration.dart';
 
@@ -42,33 +43,21 @@ class DeclarationsPageViewState extends SecondaryPageViewState {
 
   Widget buildDeclarationsCard(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(5),
-        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(this.borderRadius),
-          color: Color.fromARGB(255, 245, 245, 245),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Color.fromARGB(255, 200, 200, 200),
-                blurRadius: this.borderRadius / 2)
-          ],
-        ),
-        child: Column(children: this.buildDeclarationButtons(context)));
-  }
-
-  List<Widget> buildDeclarationButtons(BuildContext context) {
-    return <Widget>[
-      DeclarationRectangle(
-          buttonKey: 'multiusos',
-          type: DeclarationType.MULTIUSOS,
-          text: 'Declaração Multiusos',
-          buttonAction: this.declarationHandler),
-      DeclarationRectangle(
-          buttonKey: 'deslocamento',
-          type: DeclarationType.DESLOCAMENTO,
-          text: 'Declaração de Deslocamento',
-          buttonAction: this.declarationHandler),
-    ];
+      padding: EdgeInsets.all(5),
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(this.borderRadius),
+        color: Color.fromARGB(255, 245, 245, 245),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+              color: Color.fromARGB(255, 200, 200, 200),
+              blurRadius: this.borderRadius / 2)
+        ],
+      ),
+      child: DeclarationButtons(
+        handler: this.declarationHandler,
+      ),
+    );
   }
 
   Widget showDeclaration(BuildContext context) {
