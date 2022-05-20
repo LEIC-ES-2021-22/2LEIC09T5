@@ -9,11 +9,13 @@ class DeclarationRectangle extends StatelessWidget {
 
   final buttonAction;
 
-  DeclarationRectangle(
-      {DeclarationType this.type,
-      String this.text,
-      this.buttonAction,
-      String this.buttonKey});
+  DeclarationRectangle({
+    Key key,
+    DeclarationType this.type,
+    String this.text,
+    this.buttonAction,
+    String this.buttonKey,
+  });
 
   @override
   Widget build(BuildContext context) {
