@@ -11,6 +11,7 @@ import 'package:uni/view/Widgets/bus_stop_card.dart';
 import 'package:uni/view/Widgets/exam_card.dart';
 import 'package:uni/view/Widgets/print_info_card.dart';
 import 'package:uni/view/Widgets/schedule_card.dart';
+import 'package:uni/view/Widgets/certificates_card.dart';
 
 class MainCardsList extends StatelessWidget {
   final Map<FAVORITE_WIDGET_TYPE, Function> cardCreators = {
@@ -23,7 +24,9 @@ class MainCardsList extends StatelessWidget {
     FAVORITE_WIDGET_TYPE.printBalance: (k, em, od) =>
         PrintInfoCard.fromEditingInformation(k, em, od),
     FAVORITE_WIDGET_TYPE.busStops: (k, em, od) =>
-        BusStopCard.fromEditingInformation(k, em, od)
+        BusStopCard.fromEditingInformation(k, em, od),
+    FAVORITE_WIDGET_TYPE.certificates: (k, em, od) =>
+        CertificatesCard.fromEditingInformation(k, em, od)
   };
 
   @override
