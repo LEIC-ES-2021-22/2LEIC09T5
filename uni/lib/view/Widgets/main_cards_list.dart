@@ -27,7 +27,7 @@ class MainCardsList extends StatelessWidget {
     FAVORITE_WIDGET_TYPE.busStops: (k, em, od) =>
         BusStopCard.fromEditingInformation(k, em, od),
     FAVORITE_WIDGET_TYPE.certificates: (k, em, od) =>
-        CertificatesCard.fromEditingInformation(k, em, od)
+        CertificatesCard.fromEditingInformation(k, em, od),
     FAVORITE_WIDGET_TYPE.declarations: (k, em, od) =>
         DeclarationsCard.fromEditingInformation(k, em, od)
   };

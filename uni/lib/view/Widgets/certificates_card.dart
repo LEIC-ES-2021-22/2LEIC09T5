@@ -13,17 +13,15 @@ class CertificatesCard extends GenericCard {
   Widget buildCardContent(BuildContext context) {
     return Column(
       children: [
-        CertificationCard("Certificado 1", Status.accepted, "24/1/22"),
-        CertificationCard("Certificado 2", Status.pending, "2/1/22"),
-        CertificationCard("Certificado 3", Status.rejected, "4/2/21"),
+        CertificationCard('Certificado 1', Status.accepted, "24/1/22"),
+        CertificationCard('Certificado 2', Status.pending, "2/1/22"),
+        CertificationCard('Certificado 3', Status.rejected, "4/2/21"),
       ],
     );
   }
 
   @override
-  String getTitle() {
-    return "Certificados";
-  }
+  String getTitle() => 'Certificados';
 
   @override
   onClick(BuildContext context) =>
