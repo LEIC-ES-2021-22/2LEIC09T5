@@ -11,6 +11,18 @@ class DeclarationsPageView extends StatefulWidget {
 }
 
 class DeclarationsPageViewState extends SecondaryPageViewState {
+  @override
+  Widget getBody(BuildContext context) {
+    return DeclarationsPageContent();
+  }
+}
+
+class DeclarationsPageContent extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => DeclarationsPageContentState();
+}
+
+class DeclarationsPageContentState extends State<StatefulWidget> {
   final double borderRadius = 12;
   bool declarationFetched = false;
 
@@ -27,17 +39,6 @@ class DeclarationsPageViewState extends SecondaryPageViewState {
         this.declarationText = value;
       });
     });
-  }
-
-  @override
-  Widget getBody(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        DeclarationsPageTitle(),
-        this.buildDeclarationsCard(context),
-        this.showDeclaration(context)
-      ],
-    );
   }
 
   Widget buildDeclarationsCard(BuildContext context) {
@@ -90,5 +91,16 @@ class DeclarationsPageViewState extends SecondaryPageViewState {
         ),
         child: Text(this.declarationText,
             textAlign: TextAlign.center, key: Key('declarationText')));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        DeclarationsPageTitle(),
+        this.buildDeclarationsCard(context),
+        this.showDeclaration(context)
+      ],
+    );
   }
 }
