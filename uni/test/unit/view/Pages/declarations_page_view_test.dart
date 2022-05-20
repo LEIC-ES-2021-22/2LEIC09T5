@@ -1,6 +1,6 @@
 import 'package:uni/view/Pages/declarations_page_view.dart';
 import 'package:uni/view/Widgets/declarations_page_title.dart';
-import 'package:uni/view/Widgets/declaration_card.dart';
+import 'package:uni/view/Widgets/declaration_rectangle.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 
