@@ -4,5 +4,6 @@ enum FAVORITE_WIDGET_TYPE {
   printBalance,
   account,
   busStops,
-  declarations
+  declarations,
+  certificates
 }
