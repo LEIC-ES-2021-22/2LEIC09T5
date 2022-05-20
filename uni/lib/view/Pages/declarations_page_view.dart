@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uni/view/Pages/secondary_page_view.dart';
-import 'package:uni/view/Widgets/declaration_buttons.dart';
 import 'package:uni/view/Widgets/declarations_page_title.dart';
-import 'package:uni/view/Widgets/declaration_rectangle.dart';
+import 'package:uni/view/Widgets/declaration_card.dart';
 import 'package:uni/controller/declarations/declarations_fetcher.dart';
 import 'package:uni/model/entities/declaration.dart';
 
@@ -12,6 +11,18 @@ class DeclarationsPageView extends StatefulWidget {
 }
 
 class DeclarationsPageViewState extends SecondaryPageViewState {
+  @override
+  Widget getBody(BuildContext context) {
+    return DeclarationsPageContent();
+  }
+}
+
+class DeclarationsPageContent extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => DeclarationsPageContentState();
+}
+
+class DeclarationsPageContentState extends State<StatefulWidget> {
   final double borderRadius = 12;
   bool declarationFetched = false;
 
@@ -30,34 +41,35 @@ class DeclarationsPageViewState extends SecondaryPageViewState {
     });
   }
 
-  @override
-  Widget getBody(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        DeclarationsPageTitle(),
-        this.buildDeclarationsCard(context),
-        this.showDeclaration(context)
-      ],
-    );
-  }
-
   Widget buildDeclarationsCard(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(5),
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(this.borderRadius),
-        color: Color.fromARGB(255, 245, 245, 245),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-              color: Color.fromARGB(255, 200, 200, 200),
-              blurRadius: this.borderRadius / 2)
-        ],
-      ),
-      child: DeclarationButtons(
-        handler: this.declarationHandler,
-      ),
-    );
+        padding: EdgeInsets.all(5),
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(this.borderRadius),
+          color: Color.fromARGB(255, 245, 245, 245),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Color.fromARGB(255, 200, 200, 200),
+                blurRadius: this.borderRadius / 2)
+          ],
+        ),
+        child: Column(children: this.buildDeclarationButtons(context)));
+  }
+
+  List<Widget> buildDeclarationButtons(BuildContext context) {
+    return <Widget>[
+      DeclarationRectangle(
+          buttonKey: 'multiusos',
+          type: DeclarationType.MULTIUSOS,
+          text: 'Declaração Multiusos',
+          buttonAction: this.declarationHandler),
+      DeclarationRectangle(
+          buttonKey: 'deslocamento',
+          type: DeclarationType.DESLOCAMENTO,
+          text: 'Declaração de Deslocamento',
+          buttonAction: this.declarationHandler),
+    ];
   }
 
   Widget showDeclaration(BuildContext context) {
@@ -79,5 +91,16 @@ class DeclarationsPageViewState extends SecondaryPageViewState {
         ),
         child: Text(this.declarationText,
             textAlign: TextAlign.center, key: Key('declarationText')));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        DeclarationsPageTitle(),
+        this.buildDeclarationsCard(context),
+        this.showDeclaration(context)
+      ],
+    );
   }
 }
