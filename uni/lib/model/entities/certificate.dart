@@ -167,18 +167,35 @@ class CertificateType {
   });
 }
 
-enum CertificateState { accepted, pending, rejected }
+enum CertificateState {
+  requested,
+  pending,
+  delivered,
+  canceled,
+}
 
 class Certificate {
-  final CertificateType type;
+  int id;
+  String type;
   CertificateState state;
+  String downloadUrl;
+  DateTime requestDate;
 
-  Certificate(this.type, this.state);
+  Certificate(
+    this.id,
+    this.type,
+    this.state,
+    this.downloadUrl,
+    this.requestDate,
+  );
 
   Map<String, dynamic> toMap() {
     return {
-      'type': CertificateType.values.indexOf(type),
+      'id': id,
+      'type': type,
       'state': state.index,
+      'downloadUrl': downloadUrl,
+      'requestDate': requestDate.toIso8601String(),
     };
   }
 }
