@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:uni/model/entities/certificate.dart';
 import 'generic_card.dart';
-
-enum Status { accepted, pending, rejected }
 
 /*
   TODO: may need to rethink our approach to this
 */
 class CertificationCard extends GenericCard {
-  final String name;
-  final Status status;
-  final String date;
-  final double borderRadius = 10.0;
+  final Certificate certificate;
   Color status_color;
   String status_text;
 
-  CertificationCard(String this.name, Status this.status, String this.date) {
-    switch (status) {
-      case Status.accepted:
-        status_text = "Aceite";
+  CertificationCard(Certificate this.certificate) {
+    switch (certificate.state) {
+      case CertificateState.requested:
+        status_text = 'Solicitado';
+        status_color = Colors.black;
+        break;
+      case CertificateState.delivered:
+        status_text = 'Entregue';
         status_color = Colors.green.shade800;
         break;
-      case Status.pending:
-        status_text = "Pendente";
+      case CertificateState.pending:
+        status_text = 'Pendente';
         status_color = Colors.yellow.shade800;
         break;
-      case Status.rejected:
-        status_text = "Rejeitado";
+      case CertificateState.canceled:
+        status_text = 'Anulado';
         status_color = Colors.red.shade800;
         break;
     }
@@ -44,7 +44,11 @@ class CertificationCard extends GenericCard {
       children: [
         Container(
           margin: const EdgeInsets.only(bottom: 20.0),
-          child: Text(this.name, softWrap: true, textAlign: TextAlign.center),
+          child: Text(
+            certificate.type,
+            softWrap: true,
+            textAlign: TextAlign.center,
+          ),
         ),
         Container(
             child: Row(
@@ -55,9 +59,15 @@ class CertificationCard extends GenericCard {
                   softWrap: true,
                   textAlign: TextAlign.center,
                   style: TextStyle(color: status_color)),
-              Text(this.date, softWrap: true, textAlign: TextAlign.center),
+              Text(
+                '${certificate.requestDate.day}/${certificate.requestDate.month}/${certificate.requestDate.year}',
+                softWrap: true,
+                textAlign: TextAlign.center,
+              ),
             ])),
-        if (this.status == Status.accepted)
+        if (certificate.downloadUrl != null &&
+            certificate.downloadUrl.isNotEmpty)
+          // TODO
           IconButton(
             iconSize: 30,
             icon: const Icon(Icons.download, color: Colors.black),

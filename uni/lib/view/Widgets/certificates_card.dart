@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:uni/model/app_state.dart';
+import 'package:uni/model/entities/certificate.dart';
 import 'package:uni/utils/constants.dart' as Constants;
 import 'package:uni/view/Widgets/certification_card.dart';
 
@@ -11,12 +14,11 @@ class CertificatesCard extends GenericCard {
 
   @override
   Widget buildCardContent(BuildContext context) {
-    return Column(
-      children: [
-        CertificationCard('Certificado 1', Status.accepted, "24/1/22"),
-        CertificationCard('Certificado 2', Status.pending, "2/1/22"),
-        CertificationCard('Certificado 3', Status.rejected, "4/2/21"),
-      ],
+    return StoreConnector<AppState, List<Certificate>>(
+      converter: (store) => store.state.content['certificates'].sublist(0, 3),
+      builder: (context, certificates) => Column(
+        children: certificates.map((c) => CertificationCard(c)).toList(),
+      ),
     );
   }
 
