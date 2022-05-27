@@ -4,6 +4,7 @@ import 'package:logger/logger.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:tuple/tuple.dart';
+import 'package:uni/controller/certificates/certificates_fetcher.dart';
 import 'package:uni/controller/load_info.dart';
 import 'package:uni/controller/load_static/terms_and_conditions.dart';
 import 'package:uni/controller/local_storage/app_bus_stop_database.dart';
@@ -284,22 +285,20 @@ ThunkAction<AppState> getUserSchedule(
   };
 }
 
-ThunkAction<AppState> getRestaurantsFromFetcher(Completer<Null> action){
-  return (Store<AppState> store) async{
-    try{
+ThunkAction<AppState> getRestaurantsFromFetcher(Completer<Null> action) {
+  return (Store<AppState> store) async {
+    try {
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.busy));
 
       final List<Restaurant> restaurants =
-                      await RestaurantFetcherHtml().getRestaurants(store);
+          await RestaurantFetcherHtml().getRestaurants(store);
       // Updates local database according to information fetched -- Restaurants
       final RestaurantDatabase db = RestaurantDatabase();
       db.saveRestaurants(restaurants);
-      db.restaurants(day:null);
+      db.restaurants(day: null);
       store.dispatch(SetRestaurantsAction(restaurants));
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.successful));
-
-
-    } catch(e){
+    } catch (e) {
       Logger().e('Failed to get Restaurants: ${e.toString()}');
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.failed));
     }
@@ -588,12 +587,10 @@ ThunkAction<AppState> getUserCertificates(
   };
 }
 
-Future<List<Lecture>> getCertificatesFromFetcherOrElse(
+Future<List<Certificate>> getCertificatesFromFetcherOrElse(
         CertificatesFetcher fetcher, Store<AppState> store) =>
     (fetcher?.getCertificates(store)) ?? getCertificates(store);
 
-Future<List<Lecture>> getCertificates(Store<AppState> store) {
-  return CertificatesFetcherApi()
-      .getCertificates(store)
-      .catchError((e) => CertificatesFetcherHtml().getCertificates(store));
+Future<List<Certificate>> getCertificates(Store<AppState> store) {
+  return CertificatesFetcher().getCertificates(store);
 }
