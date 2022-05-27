@@ -1,4 +1,5 @@
 import 'package:uni/model/app_state.dart';
+import 'package:uni/model/entities/certificate.dart';
 import 'package:uni/model/entities/course_unit.dart';
 import 'package:uni/model/entities/exam.dart';
 import 'package:uni/model/entities/lecture.dart';
@@ -49,7 +50,6 @@ class SetScheduleStatusAction {
   RequestStatus status;
   SetScheduleStatusAction(this.status);
 }
-
 
 class SetInitialStoreStateAction {
   SetInitialStoreStateAction();
@@ -163,4 +163,14 @@ class SetExamFilter {
 class SetUserFaculties {
   List<String> faculties;
   SetUserFaculties(this.faculties);
+}
+
+class SetCertificatesAction {
+  List<Certificate> certificates;
+  SetCertificatesAction(this.certificates);
+}
+
+class SetCertificatesStatusAction {
+  RequestStatus status;
+  SetCertificatesStatusAction(this.status);
 }

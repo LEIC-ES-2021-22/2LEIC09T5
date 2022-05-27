@@ -7,6 +7,7 @@ import 'package:tuple/tuple.dart';
 import 'package:uni/controller/load_info.dart';
 import 'package:uni/controller/load_static/terms_and_conditions.dart';
 import 'package:uni/controller/local_storage/app_bus_stop_database.dart';
+import 'package:uni/controller/local_storage/app_certificates_database.dart';
 import 'package:uni/controller/local_storage/app_courses_database.dart';
 import 'package:uni/controller/local_storage/app_exams_database.dart';
 import 'package:uni/controller/local_storage/app_last_user_info_update_database.dart';
@@ -26,6 +27,7 @@ import 'package:uni/controller/schedule_fetcher/schedule_fetcher.dart';
 import 'package:uni/controller/schedule_fetcher/schedule_fetcher_api.dart';
 import 'package:uni/controller/schedule_fetcher/schedule_fetcher_html.dart';
 import 'package:uni/model/app_state.dart';
+import 'package:uni/model/entities/certificate.dart';
 import 'package:uni/model/entities/course.dart';
 import 'package:uni/model/entities/course_unit.dart';
 import 'package:uni/model/entities/exam.dart';
@@ -550,4 +552,48 @@ ThunkAction<AppState> updateStateBasedOnLocalTime() {
     final DateTime savedTime = await db.getLastUserInfoUpdateTime();
     store.dispatch(SetLastUserInfoUpdateTime(savedTime));
   };
+}
+
+ThunkAction<AppState> updateStateBasedOnLocalUserCertificates() {
+  return (Store<AppState> store) async {
+    final AppCertificatesDatabase db = AppCertificatesDatabase();
+    final List<Certificate> certs = await db.certificates();
+    store.dispatch(SetCertificatesAction(certs));
+  };
+}
+
+ThunkAction<AppState> getUserCertificates(
+    Completer<Null> action, Tuple2<String, String> userPersistentInfo,
+    {CertificatesFetcher fetcher}) {
+  return (Store<AppState> store) async {
+    try {
+      store.dispatch(SetScheduleStatusAction(RequestStatus.busy));
+
+      final List<Certificate> certificates =
+          await getCertificatesFromFetcherOrElse(fetcher, store);
+
+      // Updates local database according to the information fetched -- Lectures
+      if (userPersistentInfo.item1 != '' && userPersistentInfo.item2 != '') {
+        final AppCertificatesDatabase db = AppCertificatesDatabase();
+        db.saveNewCertificates(certificates);
+      }
+
+      store.dispatch(SetCertificatesAction(certificates));
+      store.dispatch(SetCertificatesStatusAction(RequestStatus.successful));
+    } catch (e) {
+      Logger().e('Failed to get Certificates: ${e.toString()}');
+      store.dispatch(SetCertificatesStatusAction(RequestStatus.failed));
+    }
+    action.complete();
+  };
+}
+
+Future<List<Lecture>> getCertificatesFromFetcherOrElse(
+        CertificatesFetcher fetcher, Store<AppState> store) =>
+    (fetcher?.getCertificates(store)) ?? getCertificates(store);
+
+Future<List<Lecture>> getCertificates(Store<AppState> store) {
+  return CertificatesFetcherApi()
+      .getCertificates(store)
+      .catchError((e) => CertificatesFetcherHtml().getCertificates(store));
 }
