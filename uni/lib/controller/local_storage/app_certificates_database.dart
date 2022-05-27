@@ -4,7 +4,8 @@ import 'package:uni/model/entities/certificate.dart';
 
 class AppCertificatesDatabase extends AppDatabase {
   static final createScript =
-      '''CREATE TABLE certificates(type INTEGER, state INTEGER)''';
+      '''CREATE TABLE certificates(id INTEGER PRIMARY KEY, type TEXT,
+      state INTEGER, downloadUrl TEXT, requestDate TEXT)''';
 
   AppCertificatesDatabase() : super('certificates.db', [createScript]);
 
@@ -21,8 +22,11 @@ class AppCertificatesDatabase extends AppDatabase {
     return List.generate(
       maps.length,
       (i) => Certificate(
-        CertificateType.values[maps[i]['type']],
+        maps[i]['id'],
+        maps[i]['type'],
         CertificateState.values[maps[i]['state']],
+        maps[i]['downloadUrl'],
+        DateTime.parse(maps[i]['requestDate']),
       ),
     );
   }
