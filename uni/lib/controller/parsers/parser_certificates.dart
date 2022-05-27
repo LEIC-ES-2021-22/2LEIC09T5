@@ -5,12 +5,16 @@ import 'package:uni/model/entities/certificate.dart';
 Future<List<Certificate>> parseCertificates(http.Response response) async {
   final document = parse(response.body);
 
+  print('HEY');
+
   return document
-      .querySelectorAll('table.dados > tbody > .tr')
+      .querySelectorAll('table.dados > tbody > tr')
       .sublist(2)
       .map((element) {
     final int id = int.parse(element.children[0].children[0].attributes['href']
-        .replaceAll(r'CERT_GERAL\.PED_CERT_VIEW\?PV_PED_CERT_ID=(\d+)', r'$1'));
+        .replaceAllMapped(
+            RegExp(r'CERT_GERAL\.PED_CERT_VIEW\?PV_PED_CERT_ID=(\d+)'),
+            (match) => match.group(1)));
     final String type = element.children[0].text.trim();
 
     CertificateState state = CertificateState.requested;
@@ -34,6 +38,8 @@ Future<List<Certificate>> parseCertificates(http.Response response) async {
     final DateTime requestDate =
         DateTime.parse(element.children[1].attributes['title']);
 
+    print(type);
+
     return Certificate(id, type, state, downloadUrl, requestDate);
-  });
+  }).toList();
 }
