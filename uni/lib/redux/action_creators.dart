@@ -561,21 +561,15 @@ ThunkAction<AppState> updateStateBasedOnLocalUserCertificates() {
   };
 }
 
-ThunkAction<AppState> getUserCertificates(
-    Completer<Null> action, Tuple2<String, String> userPersistentInfo,
-    {CertificatesFetcher fetcher}) {
+ThunkAction<AppState> getUserCertificates(Completer<Null> action) {
   return (Store<AppState> store) async {
     try {
       store.dispatch(SetScheduleStatusAction(RequestStatus.busy));
 
-      final List<Certificate> certificates =
-          await getCertificatesFromFetcherOrElse(fetcher, store);
+      final List<Certificate> certificates = await getCertificates(store);
 
-      // Updates local database according to the information fetched -- Lectures
-      if (userPersistentInfo.item1 != '' && userPersistentInfo.item2 != '') {
-        final AppCertificatesDatabase db = AppCertificatesDatabase();
-        db.saveNewCertificates(certificates);
-      }
+      final AppCertificatesDatabase db = AppCertificatesDatabase();
+      db.saveNewCertificates(certificates);
 
       store.dispatch(SetCertificatesAction(certificates));
       store.dispatch(SetCertificatesStatusAction(RequestStatus.successful));
@@ -586,10 +580,6 @@ ThunkAction<AppState> getUserCertificates(
     action.complete();
   };
 }
-
-Future<List<Certificate>> getCertificatesFromFetcherOrElse(
-        CertificatesFetcher fetcher, Store<AppState> store) =>
-    (fetcher?.getCertificates(store)) ?? getCertificates(store);
 
 Future<List<Certificate>> getCertificates(Store<AppState> store) {
   return CertificatesFetcher().getCertificates(store);
