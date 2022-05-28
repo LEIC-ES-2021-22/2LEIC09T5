@@ -15,7 +15,8 @@ class CertificatesCard extends GenericCard {
   @override
   Widget buildCardContent(BuildContext context) {
     return StoreConnector<AppState, List<Certificate>>(
-      converter: (store) => store.state.content['certificates'].sublist(0, 3),
+      converter: (store) =>
+          store.state.content['certificates'].take(3).toList(),
       builder: (context, certificates) => Column(
         children: certificates.map((c) => CertificationCard(c)).toList(),
       ),
