@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:tuple/tuple.dart';
 import 'package:uni/view/Widgets/switch_form_field.dart';
+import 'package:uni/view/theme.dart';
 
 class RequestJustificationForm extends StatefulWidget {
   const RequestJustificationForm({Key key}) : super(key: key);
@@ -72,8 +73,16 @@ class _RequestJustificationFormState extends State<RequestJustificationForm> {
                 firstDate: DateTime(2022, 01, 01), // the earliest allowable
                 lastDate: DateTime.now(), // the latest allowable
                 currentDate: DateTime.now(),
-                saveText: 'Done')
-            .then((DateTimeRange range) {
+                saveText: 'Done',
+                builder: (context, child) => Theme(
+                  data: applicationLightTheme.copyWith(
+                    colorScheme: ColorScheme.light(
+                      primary: Color.fromARGB(255, 0x75, 0x17, 0x1e)
+                    ),
+                  ),
+                  child: child
+                )
+            ).then((DateTimeRange range) {
               this.setState(() {
                 String range_str = range.toString();
                 this.fieldsTextContent[keyText] = range_str.split(' ')[0] + " - " + range_str.split(' ')[3];
