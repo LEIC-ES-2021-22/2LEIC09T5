@@ -10,7 +10,6 @@ class AppCertificatesDatabase extends AppDatabase {
   AppCertificatesDatabase() : super('certificates.db', [createScript]);
 
   saveNewCertificates(List<Certificate> certs) async {
-    await deleteCertificates();
     await _insertCertificates(certs);
   }
 

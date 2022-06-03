@@ -566,10 +566,12 @@ ThunkAction<AppState> getUserCertificates(Completer<Null> action) {
     try {
       store.dispatch(SetScheduleStatusAction(RequestStatus.busy));
 
-      final List<Certificate> certificates = await getCertificates(store);
+      List<Certificate> certificates = await getCertificates(store);
 
       final AppCertificatesDatabase db = AppCertificatesDatabase();
       db.saveNewCertificates(certificates);
+
+      certificates = await db.certificates();
 
       store.dispatch(SetCertificatesAction(certificates));
       store.dispatch(SetCertificatesStatusAction(RequestStatus.successful));

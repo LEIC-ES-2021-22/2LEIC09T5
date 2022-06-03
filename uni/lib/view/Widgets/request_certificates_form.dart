@@ -1,10 +1,14 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:tuple/tuple.dart';
+import 'package:uni/controller/local_storage/app_certificates_database.dart';
+import 'package:uni/main.dart';
 import 'package:uni/model/entities/certificate.dart';
+import 'package:uni/redux/action_creators.dart';
 import 'package:uni/view/Widgets/switch_form_field.dart';
 
 class RequestCertificatesForm extends StatefulWidget {
@@ -234,8 +238,21 @@ class _RequestCertificatesFormState extends State<RequestCertificatesForm> {
     }
 
     fields.add(ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         if (formKey.currentState.validate()) {
+          // Mocking sending a request to the actual api
+          var db = AppCertificatesDatabase();
+          db.saveNewCertificates([
+            Certificate(
+              Random().nextInt(1024 * 1024),
+              certificateType.label,
+              CertificateState.requested,
+              null,
+              DateTime.now(),
+            )
+          ]);
+
+          state.dispatch(updateStateBasedOnLocalUserCertificates());
           Navigator.pop(context);
         }
       },
