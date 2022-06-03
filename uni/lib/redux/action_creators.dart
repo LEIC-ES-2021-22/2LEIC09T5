@@ -564,7 +564,7 @@ ThunkAction<AppState> updateStateBasedOnLocalUserCertificates() {
 ThunkAction<AppState> getUserCertificates(Completer<Null> action) {
   return (Store<AppState> store) async {
     try {
-      store.dispatch(SetScheduleStatusAction(RequestStatus.busy));
+      store.dispatch(SetCertificatesStatusAction(RequestStatus.busy));
 
       List<Certificate> certificates = await getCertificates(store);
 
