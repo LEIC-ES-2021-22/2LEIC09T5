@@ -4,9 +4,11 @@ import 'package:logger/logger.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:tuple/tuple.dart';
+import 'package:uni/controller/certificates/certificates_fetcher.dart';
 import 'package:uni/controller/load_info.dart';
 import 'package:uni/controller/load_static/terms_and_conditions.dart';
 import 'package:uni/controller/local_storage/app_bus_stop_database.dart';
+import 'package:uni/controller/local_storage/app_certificates_database.dart';
 import 'package:uni/controller/local_storage/app_courses_database.dart';
 import 'package:uni/controller/local_storage/app_exams_database.dart';
 import 'package:uni/controller/local_storage/app_last_user_info_update_database.dart';
@@ -26,6 +28,7 @@ import 'package:uni/controller/schedule_fetcher/schedule_fetcher.dart';
 import 'package:uni/controller/schedule_fetcher/schedule_fetcher_api.dart';
 import 'package:uni/controller/schedule_fetcher/schedule_fetcher_html.dart';
 import 'package:uni/model/app_state.dart';
+import 'package:uni/model/entities/certificate.dart';
 import 'package:uni/model/entities/course.dart';
 import 'package:uni/model/entities/course_unit.dart';
 import 'package:uni/model/entities/exam.dart';
@@ -282,22 +285,20 @@ ThunkAction<AppState> getUserSchedule(
   };
 }
 
-ThunkAction<AppState> getRestaurantsFromFetcher(Completer<Null> action){
-  return (Store<AppState> store) async{
-    try{
+ThunkAction<AppState> getRestaurantsFromFetcher(Completer<Null> action) {
+  return (Store<AppState> store) async {
+    try {
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.busy));
 
       final List<Restaurant> restaurants =
-                      await RestaurantFetcherHtml().getRestaurants(store);
+          await RestaurantFetcherHtml().getRestaurants(store);
       // Updates local database according to information fetched -- Restaurants
       final RestaurantDatabase db = RestaurantDatabase();
       db.saveRestaurants(restaurants);
-      db.restaurants(day:null);
+      db.restaurants(day: null);
       store.dispatch(SetRestaurantsAction(restaurants));
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.successful));
-
-
-    } catch(e){
+    } catch (e) {
       Logger().e('Failed to get Restaurants: ${e.toString()}');
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.failed));
     }
@@ -550,4 +551,38 @@ ThunkAction<AppState> updateStateBasedOnLocalTime() {
     final DateTime savedTime = await db.getLastUserInfoUpdateTime();
     store.dispatch(SetLastUserInfoUpdateTime(savedTime));
   };
+}
+
+ThunkAction<AppState> updateStateBasedOnLocalUserCertificates() {
+  return (Store<AppState> store) async {
+    final AppCertificatesDatabase db = AppCertificatesDatabase();
+    final List<Certificate> certs = await db.certificates();
+    store.dispatch(SetCertificatesAction(certs));
+  };
+}
+
+ThunkAction<AppState> getUserCertificates(Completer<Null> action) {
+  return (Store<AppState> store) async {
+    try {
+      store.dispatch(SetCertificatesStatusAction(RequestStatus.busy));
+
+      List<Certificate> certificates = await getCertificates(store);
+
+      final AppCertificatesDatabase db = AppCertificatesDatabase();
+      db.saveNewCertificates(certificates);
+
+      certificates = await db.certificates();
+
+      store.dispatch(SetCertificatesAction(certificates));
+      store.dispatch(SetCertificatesStatusAction(RequestStatus.successful));
+    } catch (e) {
+      Logger().e('Failed to get Certificates: ${e.toString()}');
+      store.dispatch(SetCertificatesStatusAction(RequestStatus.failed));
+    }
+    action.complete();
+  };
+}
+
+Future<List<Certificate>> getCertificates(Store<AppState> store) {
+  return CertificatesFetcher().getCertificates(store);
 }
