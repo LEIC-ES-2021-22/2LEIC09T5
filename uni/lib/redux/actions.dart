@@ -1,12 +1,14 @@
 import 'package:uni/model/app_state.dart';
 import 'package:uni/model/entities/course_unit.dart';
 import 'package:uni/model/entities/exam.dart';
+import 'package:uni/model/entities/justification.dart';
 import 'package:uni/model/entities/lecture.dart';
 import 'package:uni/model/entities/profile.dart';
 import 'package:uni/model/entities/restaurant.dart';
 import 'package:uni/model/entities/session.dart';
 import 'package:uni/model/entities/trip.dart';
 import 'package:uni/model/home_page_model.dart';
+import 'package:uni/view/Widgets/request_justification_form.dart';
 
 import '../model/entities/bus_stop.dart';
 
@@ -49,7 +51,6 @@ class SetScheduleStatusAction {
   RequestStatus status;
   SetScheduleStatusAction(this.status);
 }
-
 
 class SetInitialStoreStateAction {
   SetInitialStoreStateAction();
@@ -163,4 +164,9 @@ class SetExamFilter {
 class SetUserFaculties {
   List<String> faculties;
   SetUserFaculties(this.faculties);
+}
+
+class SetAbsenceJustificationAction {
+  List<Justification> justifications;
+  SetAbsenceJustificationAction(this.justifications);
 }

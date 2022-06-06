@@ -9,6 +9,7 @@ import 'package:uni/controller/load_static/terms_and_conditions.dart';
 import 'package:uni/controller/local_storage/app_bus_stop_database.dart';
 import 'package:uni/controller/local_storage/app_courses_database.dart';
 import 'package:uni/controller/local_storage/app_exams_database.dart';
+import 'package:uni/controller/local_storage/app_justification_database.dart';
 import 'package:uni/controller/local_storage/app_last_user_info_update_database.dart';
 import 'package:uni/controller/local_storage/app_lectures_database.dart';
 import 'package:uni/controller/local_storage/app_refresh_times_database.dart';
@@ -29,12 +30,14 @@ import 'package:uni/model/app_state.dart';
 import 'package:uni/model/entities/course.dart';
 import 'package:uni/model/entities/course_unit.dart';
 import 'package:uni/model/entities/exam.dart';
+import 'package:uni/model/entities/justification.dart';
 import 'package:uni/model/entities/lecture.dart';
 import 'package:uni/model/entities/profile.dart';
 import 'package:uni/model/entities/restaurant.dart';
 import 'package:uni/model/entities/session.dart';
 import 'package:uni/model/entities/trip.dart';
 import 'package:uni/redux/actions.dart';
+import 'package:uni/view/Widgets/request_justification_form.dart';
 
 import '../model/entities/bus_stop.dart';
 
@@ -282,22 +285,20 @@ ThunkAction<AppState> getUserSchedule(
   };
 }
 
-ThunkAction<AppState> getRestaurantsFromFetcher(Completer<Null> action){
-  return (Store<AppState> store) async{
-    try{
+ThunkAction<AppState> getRestaurantsFromFetcher(Completer<Null> action) {
+  return (Store<AppState> store) async {
+    try {
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.busy));
 
       final List<Restaurant> restaurants =
-                      await RestaurantFetcherHtml().getRestaurants(store);
+          await RestaurantFetcherHtml().getRestaurants(store);
       // Updates local database according to information fetched -- Restaurants
       final RestaurantDatabase db = RestaurantDatabase();
       db.saveRestaurants(restaurants);
-      db.restaurants(day:null);
+      db.restaurants(day: null);
       store.dispatch(SetRestaurantsAction(restaurants));
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.successful));
-
-
-    } catch(e){
+    } catch (e) {
       Logger().e('Failed to get Restaurants: ${e.toString()}');
       store.dispatch(SetRestaurantsStatusAction(RequestStatus.failed));
     }
@@ -549,5 +550,13 @@ ThunkAction<AppState> updateStateBasedOnLocalTime() {
     final AppLastUserInfoUpdateDatabase db = AppLastUserInfoUpdateDatabase();
     final DateTime savedTime = await db.getLastUserInfoUpdateTime();
     store.dispatch(SetLastUserInfoUpdateTime(savedTime));
+  };
+}
+
+ThunkAction<AppState> updateStateBasedOnLocalAbsenceJustifications() {
+  return (Store<AppState> store) async {
+    final AppJustificationDatabase db = AppJustificationDatabase();
+    final List<Justification> justifications = await db.justifications();
+    store.dispatch(SetAbsenceJustificationAction(justifications));
   };
 }

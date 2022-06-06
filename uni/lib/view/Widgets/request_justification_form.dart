@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:tuple/tuple.dart';
+import 'package:uni/controller/local_storage/app_justification_database.dart';
+import 'package:uni/model/entities/justification.dart';
 import 'package:uni/view/Widgets/switch_form_field.dart';
 import 'package:uni/view/theme.dart';
 
@@ -15,14 +17,14 @@ class RequestJustificationForm extends StatefulWidget {
       _RequestJustificationFormState();
 }
 
-class Justification {
+class JustificationView {
   static final values = ["ESOF", "DA", "LTW", "LCOM", "SO"];
 
   final String UC;
   final String date;
   final String obs;
 
-  const Justification(
+  const JustificationView(
     this.UC,
     this.date,
     this.obs,
@@ -30,13 +32,11 @@ class Justification {
 }
 
 class _RequestJustificationFormState extends State<RequestJustificationForm> {
-  Justification justification = null;
+  JustificationView justification = null;
 
   final formKey = GlobalKey<FormState>();
 
-  final Map<String, String> fieldsTextContent = {
-    "Calendário": "Calendário"
-  };
+  final Map<String, String> fieldsTextContent = {"Calendário": "Calendário"};
 
   @override
   Widget build(BuildContext context) {
@@ -69,25 +69,23 @@ class _RequestJustificationFormState extends State<RequestJustificationForm> {
     Function handleCalendarChange(String keyText) {
       return () {
         showDateRangePicker(
-                context: context,
-                firstDate: DateTime(2022, 01, 01), // the earliest allowable
-                lastDate: DateTime.now(), // the latest allowable
-                currentDate: DateTime.now(),
-                saveText: 'Done',
-                builder: (context, child) => Theme(
-                  data: applicationLightTheme.copyWith(
-                    colorScheme: ColorScheme.light(
-                      primary: Color.fromARGB(255, 0x75, 0x17, 0x1e)
-                    ),
-                  ),
-                  child: child
-                )
-            ).then((DateTimeRange range) {
-              this.setState(() {
-                String range_str = range.toString();
-                this.fieldsTextContent[keyText] = range_str.split(' ')[0] + " - " + range_str.split(' ')[3];
-              });
-            });
+            context: context,
+            firstDate: DateTime(2022, 01, 01), // the earliest allowable
+            lastDate: DateTime.now(), // the latest allowable
+            currentDate: DateTime.now(),
+            saveText: 'Done',
+            builder: (context, child) => Theme(
+                data: applicationLightTheme.copyWith(
+                  colorScheme: ColorScheme.light(
+                      primary: Color.fromARGB(255, 0x75, 0x17, 0x1e)),
+                ),
+                child: child)).then((DateTimeRange range) {
+          this.setState(() {
+            String range_str = range.toString();
+            this.fieldsTextContent[keyText] =
+                range_str.split(' ')[0] + " - " + range_str.split(' ')[3];
+          });
+        });
       };
     }
 
@@ -98,7 +96,7 @@ class _RequestJustificationFormState extends State<RequestJustificationForm> {
           filled: true,
         ),
         hint: Text('Escolher uma UC'),
-        items: Justification.values
+        items: JustificationView.values
             .map((type) => DropdownMenuItem(
                   child: Text(type),
                   value: type,
@@ -113,8 +111,7 @@ class _RequestJustificationFormState extends State<RequestJustificationForm> {
           initialValue: this.fieldsTextContent['Calendário'],
           onTap: handleCalendarChange("Calendário"),
           showCursor: false,
-          readOnly: true   
-      )  
+          readOnly: true)
     ];
 
     fields.add(TextFormField(
@@ -124,9 +121,11 @@ class _RequestJustificationFormState extends State<RequestJustificationForm> {
     ));
 
     fields.add(ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         if (formKey.currentState.validate()) {
-          Navigator.pop(context);
+          var db = AppJustificationDatabase();
+
+          db.saveNewJustifications([/*Justification()*/]);
         }
       },
       child: Text('Submeter Pedido'),

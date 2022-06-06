@@ -62,8 +62,10 @@ AppState appReducers(AppState state, dynamic action) {
     return setExamFilter(state, action);
   } else if (action is SetUserFaculties) {
     return setUserFaculties(state, action);
-  } else if(action is SetRestaurantsAction){
+  } else if (action is SetRestaurantsAction) {
     return setRestaurantsAction(state, action);
+  } else if (action is SetAbsenceJustificationAction) {
+    return setAbsenceJustificationAction(state, action);
   }
   return state;
 }
@@ -217,4 +219,12 @@ AppState setExamFilter(AppState state, SetExamFilter action) {
 AppState setUserFaculties(AppState state, SetUserFaculties action) {
   Logger().i('setting user faculty(ies) ' + action.faculties.toString());
   return state.cloneAndUpdateValue('userFaculties', action.faculties);
+}
+
+AppState setAbsenceJustificationAction(
+    AppState state, SetAbsenceJustificationAction action) {
+  Logger().i('setting absence justification(s) ' +
+      action.justifications.length.toString());
+  return state.cloneAndUpdateValue(
+      'absenceJustifications', action.justifications);
 }
