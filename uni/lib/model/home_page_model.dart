@@ -5,5 +5,6 @@ enum FAVORITE_WIDGET_TYPE {
   account,
   busStops,
   declarations,
-  certificates
+  certificates,
+  justifications
 }

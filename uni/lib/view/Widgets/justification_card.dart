@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'generic_card.dart';
+import 'package:uni/utils/constants.dart' as Constants;
 
 enum Status { accepted, pending, rejected }
 
@@ -7,13 +8,14 @@ enum Status { accepted, pending, rejected }
   TODO: may need to rethink our approach to this
 */
 class JustificationCard extends GenericCard {
+
   final String course;
   final String courseClass;
   final Status status;
   final String date;
   final double borderRadius = 10.0;
-  Color status_color;
-  String status_text;
+  Color status_color =  Colors.black;
+  String status_text = "";
   Color secondary_text_color = Colors.grey.shade600;
 
   JustificationCard(String this.course, String this.courseClass, Status this.status, String this.date) {
