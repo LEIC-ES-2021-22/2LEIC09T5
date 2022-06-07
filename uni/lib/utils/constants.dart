@@ -11,6 +11,7 @@ const navStops = 'Autocarros';
 const navAbout = 'Sobre';
 const navBugReport = 'Bugs e Sugestões';
 const navLogOut = 'Terminar sessão';
+const navClassChange = "Trocas de turma";
 
 const faculties = [
   'faup',
