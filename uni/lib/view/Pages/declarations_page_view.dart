@@ -74,7 +74,11 @@ class DeclarationsPageContentState extends State<StatefulWidget> {
 
   Widget showDeclaration(BuildContext context) {
     if (!this.declarationFetched) {
-      return Container(width: 0.0, height: 0.0);
+      return Container(
+          width: 0.0,
+          height: 0.0,
+          child: Text("",
+              textAlign: TextAlign.center, key: Key('declarationText')));
     } // cannot return null, return container that takes as little space as possible
 
     return Container(
