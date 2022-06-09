@@ -18,5 +18,7 @@ StepDefinitionGeneric TapDeclarationButton() {
         true);
 
     await context.world.driver.tap(locator);
+
+    sleep(Duration(seconds: 1)); // we need some delay for some reason
   });
 }

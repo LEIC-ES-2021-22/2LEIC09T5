@@ -16,6 +16,7 @@ class CertificatesPageViewState extends SecondaryPageViewState {
   @override
   Widget getBody(BuildContext context) {
     return StoreConnector<AppState, List<Certificate>>(
+      key: Key('certificatesForm'),
       converter: (store) => store.state.content['certificates'],
       builder: (context, certificates) => Scaffold(
         body: ListView.builder(
@@ -25,6 +26,7 @@ class CertificatesPageViewState extends SecondaryPageViewState {
           itemCount: certificates.length + 1,
         ),
         floatingActionButton: FloatingActionButton(
+          key: Key('certificatesFAB'),
           child: Icon(Icons.add),
           onPressed: () => Navigator.push(
               context,
