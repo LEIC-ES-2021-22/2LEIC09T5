@@ -2,13 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:uni/controller/parsers/parser_course_units.dart';
 import 'package:uni/model/app_state.dart';
-import 'package:uni/controller/local_storage/app_certificates_database.dart';
-import 'package:uni/main.dart';
-import 'package:uni/model/entities/certificate.dart';
 import 'package:uni/model/entities/course_unit.dart';
-import 'package:uni/model/entities/lecture.dart';
-import 'package:uni/redux/action_creators.dart';
+import 'package:uni/controller/networking/network_router.dart';
 
 class RequestClassChangeForm extends StatefulWidget {
   const RequestClassChangeForm({Key key}) : super(key: key);
@@ -18,9 +15,10 @@ class RequestClassChangeForm extends StatefulWidget {
 }
 
 class _RequestClassChangeFormState extends State<RequestClassChangeForm> {
-  String uc = null;
-  String format = 'P';
-  String shipping = 'N';
+  CourseUnit uc = null;
+  List<String> classes = [];
+  bool classesFetched = false;
+  String chosenClass = null;
 
   final formKey = GlobalKey<FormState>();
 
@@ -46,15 +44,14 @@ class _RequestClassChangeFormState extends State<RequestClassChangeForm> {
 
   List<Widget> getFormFields() {
     final List<Widget> fields = [
-      StoreConnector<AppState, List<String>>(converter: (store) {
-        final List<CourseUnit> exams = store.state.content['currUcs'];
+      StoreConnector<AppState, List<CourseUnit>>(converter: (store) {
+        final List<CourseUnit> ucs = store.state.content['currUcs'];
 
         final Set currUcs =
             store.state.content['schedule'].map((l) => l.subject).toSet();
 
-        return exams
+        return ucs
             .where((unit) => currUcs.contains(unit.abbreviation))
-            .map((unit) => '${unit.abbreviation} - ${unit.name}')
             .toList();
       }, builder: (context, ucs) {
         return DropdownButtonFormField(
@@ -65,16 +62,66 @@ class _RequestClassChangeFormState extends State<RequestClassChangeForm> {
           hint: Text('Escolher uma UC'),
           items: ucs
               .map((uc) => DropdownMenuItem(
-                    child: Text(uc),
+                    child: Text('${uc.abbreviation} - ${uc.name}'),
                     value: uc,
                   ))
               .toList(),
-          onChanged: (t) => setState(() => uc = t),
+          onChanged: (t) => setState(() {
+            uc = t;
+            this.classesFetched = false;
+            this.chosenClass = null;
+          }),
           value: uc,
           isExpanded: true,
         );
       }),
     ];
+
+    if (uc != null) {
+      fields.add(StoreConnector<AppState, List<String>>(converter: (store) {
+        if (!classesFetched) {
+          // do not place in AppState since this will change with every change to the chosen UC
+          final response = NetworkRouter.getWithCookies(
+                  NetworkRouter.getBaseUrlFromSession(
+                          store.state.content['session']) +
+                      "it_listagem.lista_turma_disciplina?",
+                  {
+                    'pv_curso_id': store.state.content['profile'].courses[0].id
+                        .toString(), // TODO: figure out how to handle multiple courses
+                    'pv_ocorrencia_id': uc.occurrId.toString(),
+                    'pv_ano_lectivo': '2021', // FIXME: figure this out
+                    'pv_periodo_id': uc.semesterCode.characters.first,
+                    'pv_no_menu': '1'
+                  },
+                  store.state.content['session'])
+              .then((response) {
+            this.setState(() {
+              this.classes = parseCoursesUnitClasses(response);
+              this.classesFetched = true;
+            });
+          });
+        }
+
+        return classes;
+      }, builder: (context, ucs) {
+        return DropdownButtonFormField(
+          decoration: InputDecoration(
+            labelText: 'Turma pretendida',
+            filled: true,
+          ),
+          hint: Text('Escolher uma nova turma'),
+          items: ['Escolher nova turma', ...ucs]
+              .map((className) => DropdownMenuItem(
+                    child: Text(className),
+                    value: className,
+                  ))
+              .toList(),
+          onChanged: (c) => setState(() => chosenClass = c),
+          value: chosenClass,
+          isExpanded: true,
+        );
+      }));
+    }
 
     fields.add(ElevatedButton(
       onPressed: () async {
