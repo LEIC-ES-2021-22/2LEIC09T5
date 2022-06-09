@@ -56,6 +56,7 @@ class _RequestCertificatesFormState extends State<RequestCertificatesForm> {
   List<Widget> getFormFields() {
     final List<Widget> fields = [
       DropdownButtonFormField(
+        key: Key('dropdownMenu'),
         decoration: InputDecoration(
           labelText: 'Tipo de certificado',
           filled: true,
@@ -238,6 +239,7 @@ class _RequestCertificatesFormState extends State<RequestCertificatesForm> {
     }
 
     fields.add(ElevatedButton(
+      key: Key('submissionButton'),
       onPressed: () async {
         if (formKey.currentState.validate()) {
           // Mocking sending a request to the actual api
